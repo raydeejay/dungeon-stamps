@@ -29,8 +29,20 @@
   ((name   :initform 'weapon)
    (damage :accessor damage :initarg  :damage :initform (+ 3 (random 8)))))
 
-(defclass demon (stamp)
+(defclass enemy (stamp)
+  ((name :accessor name :initform 'enemy)
+   (hp   :accessor hp   :initarg  :hp    :initform 10)))
+
+(defclass demon (enemy)
   ((name :accessor name :initform 'demon)
+   (hp   :accessor hp   :initarg  :hp    :initform (1+ (random 8)))))
+
+(defclass skeleton (enemy)
+  ((name :accessor name :initform 'skeleton)
+   (hp   :accessor hp   :initarg  :hp    :initform (1+ (random 4)))))
+
+(defclass goblin (enemy)
+  ((name :accessor name :initform 'goblin)
    (hp   :accessor hp   :initarg  :hp    :initform (1+ (random 6)))))
 
 (defclass coin (stamp)
@@ -57,7 +69,7 @@
   (setf (weapon *hero*) stamp)
   T)
 
-(defmethod interact ((stamp demon))
+(defmethod interact ((stamp enemy))
   (if (weapon *hero*)
       (cond ((< (damage (weapon *hero*)) (hp stamp))
              (decf (hp stamp) (damage (weapon *hero*)))
@@ -95,7 +107,7 @@ additional rendering, like health points or damage value."))
 (defmethod draw-stamp :after ((stamp weapon) x y)
   (print-text (format nil "~D" (damage stamp)) (+ 10 (* 120 x)) (+ 10 (* y 160))))
 
-(defmethod draw-stamp :after ((stamp demon) x y)
+(defmethod draw-stamp :after ((stamp enemy) x y)
   (print-text (format nil "~D" (hp stamp)) (+ 90 (* 120 x)) (+ 140 (* y 160))))
 
 (defmethod draw-stamp :after ((stamp coin) x y)
@@ -232,7 +244,9 @@ additional rendering, like health points or damage value."))
 
 (defun generate-stamp ()
   (make-instance (random-elt '(coin coin coin coin
-                               demon demon demon demon demon demon demon
+                               skeleton skeleton skeleton
+                               goblin goblin goblin
+                               demon
                                potion
                                chest
                                weapon weapon weapon))))
@@ -252,6 +266,8 @@ additional rendering, like health points or damage value."))
   (gamekit:define-image 'potion "potion.png")
   (gamekit:define-image 'weapon "weapon.png")
   (gamekit:define-image 'chest "chest.png")
+  (gamekit:define-image 'skeleton "skeleton.png")
+  (gamekit:define-image 'goblin "goblin.png")
   (gamekit:define-image 'empty "empty.png")
   )
 
