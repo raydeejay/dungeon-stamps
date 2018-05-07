@@ -12,7 +12,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; MODEL
 (defclass stamp ()
-  ((name :accessor name :initform :weapon)))
+  ((name :accessor name :initarg :name :initform 'stamp))
+  (:documentation "Base clase for stamps."))
 
 (defgeneric interact (stamp)
   (:documentation "Interact with a stamp. Returns T if the stamp should be discarded."))
