@@ -8,5 +8,7 @@
   :depends-on (#:trivial-gamekit)
   :components ((:file "package")
                (:file "utils")
+               (:file "model")
+               (:file "field")
                (:file "dungeon-stamps")))
 
