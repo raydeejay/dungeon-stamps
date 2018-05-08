@@ -12,7 +12,7 @@
                  (:viewport-height *canvas-height*)   ; window's height
                  (:viewport-title "Dungeon stamps"))  ; window's title
 
-(gamekit:register-resource-package 'dungeon-stamps "/home/raydj/lisp/dungeon-stamps/img/")
+(gamekit:register-resource-package 'dungeon-stamps (asdf:system-relative-pathname :dungeon-stamps "img/"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GAME STATE
